@@ -1,12 +1,12 @@
 # SVG pinout generator 0.1
 # furrtek 06/2018
-# Only QFPR packages have been tested !
+# Only QFPR*, QFP160 packages have been tested !
 
 # Usage: svgpinout pinout.csv
 # First CSV line: Chip name
 # Second CSV line: Package
 # All other lines: Pin name, Type, Direction (IN, OUT, BIDIR)
-# Type: A=Address, C=Control, D=Data, K=Clock, P=Power
+# Type: A=Address, C=Control, D=Data, G=Graphics, K=Clock, M=Multiplexed, P=Power
 
 import sys
 import svgwrite
@@ -96,8 +96,8 @@ with open(sys.argv[1]) as csv_file:
     elif package == "QFP160":
     	pincount_w = 40
     	pincount_h = 40
-    	ref_size = 50
-    	dot_size = 30
+    	ref_size = 90
+    	dot_size = 50
     elif package == "QFP176":
     	pincount_w = 44
     	pincount_h = 44
@@ -126,7 +126,7 @@ with open(sys.argv[1]) as csv_file:
     svg_document.add(svg_document.text(chip_name,
 									   fill = "black",
 									   style = "font-size:" + str(ref_size) + "px; font-family:Verdana;",
-	                                   insert = (doc_w * 0.2, doc_h * 0.15 + doc_h * 0.28)))
+	                                   insert = (doc_w * 0.2, doc_h * 0.2 + 180)))
 
     # Pin 1 marker
     svg_document.add(svg_document.circle(r=str(dot_size),
@@ -138,18 +138,25 @@ with open(sys.argv[1]) as csv_file:
     for i in range(2, len(rows)):
 		pin = rows[i]
 		pin_name = pin[0]
-		pin_type = pin[1]
+		if len(pin) > 1:
+			pin_type = pin[1]
+		else:
+			pin_type = '?'
 		pin_number = i - 1
 
 		# Color decode
 		if pin_type == "A":
 			rgb_color = "rgb(255,255,127)"
 		elif pin_type == "C":
-			rgb_color = "rgb(127,95,191)"
+			rgb_color = "rgb(159,127,223)"
 		elif pin_type == "D":
 			rgb_color = "rgb(127,191,255)"
+		elif pin_type == "G":
+			rgb_color = "rgb(159,191,127)"
 		elif pin_type == "K":
 			rgb_color = "rgb(255,0,255)"
+		elif pin_type == "M":
+			rgb_color = "rgb(255,127,0)"
 		elif pin_type == "P":
 			if pin_name == "VCC":
 				rgb_color = "rgb(255,0,0)"
@@ -158,40 +165,45 @@ with open(sys.argv[1]) as csv_file:
 		else:
 			rgb_color = "rgb(255,255,255)"
 
-		centering = pin_length/2 - len(pin_name) * 4.5
-		number_length = len(str(pin_number)) * 4.5
+		centering = pin_length/2 - len(pin_name) * 4.8
+		number_length = len(str(pin_number)) * 4.8
+
+		corner_offset = arrow_length + pin_length + corner_margin
+		bottom_offset = arrow_length + pin_length + chip_h - corner_margin - pin_width
+		right_offset = arrow_length + pin_length + chip_w - corner_margin - pin_width
+		pin_offset = pin_counter * (pin_width + pin_space)
 
 		if (edge == 0):
-			pin_insert = (pin_counter * (pin_width + pin_space) + pin_length + corner_margin, chip_h + pin_length)
+			pin_insert = (corner_offset + pin_offset, chip_h + pin_length + arrow_length)
 			text_insert = (-pin_insert[1] - pin_length + centering, pin_insert[0] + 15.5)
 			number_insert = (pin_insert[0] + 10 - number_length, pin_insert[1] - 10)
 			arrow_insert = (pin_insert[1] + pin_length, -pin_insert[0] - pin_width)
 			pin_size = (str(pin_width) + "px", str(pin_length) + "px")
-			rotation = "rotate(-90)"
+			text_rotation = "rotate(-90)"
 			arrow_rotation = "rotate(90)"
 		elif (edge == 1):
-			pin_insert = (chip_w + pin_length, (chip_h + pin_length) - (pin_counter * (pin_width + pin_space) + corner_margin + pin_width))
+			pin_insert = (chip_w + pin_length + arrow_length, bottom_offset - pin_offset)
 			text_insert = (pin_insert[0] + centering, pin_insert[1] + 15.5)
 			number_insert = (pin_insert[0] - 10 - number_length*2, pin_insert[1] + 15.5)
 			arrow_insert = (pin_insert[0] + pin_length, pin_insert[1])
 			pin_size = (str(pin_length) + "px", str(pin_width) + "px")
-			rotation = "rotate(0)"
+			text_rotation = "rotate(0)"
 			arrow_rotation = "rotate(0)"
 		elif (edge == 2):
-			pin_insert = ((chip_w + pin_length) - (pin_counter * (pin_width + pin_space) + pin_length - corner_margin), 0)
+			pin_insert = (right_offset - pin_offset, arrow_length)
 			text_insert = (-pin_insert[1] - pin_length + centering, pin_insert[0] + 15.5)
 			number_insert = (pin_insert[0], pin_insert[1] + pin_length + 20)
-			arrow_insert = (pin_insert[1], pin_insert[0])
+			arrow_insert = (-arrow_length, pin_insert[0])
 			pin_size = (str(pin_width) + "px", str(pin_length) + "px")
-			rotation = "rotate(-90)"
+			text_rotation = "rotate(-90)"
 			arrow_rotation = "rotate(-90)"
 		elif (edge == 3):
-			pin_insert = (0, pin_counter * (pin_width + pin_space) + pin_length + corner_margin)
+			pin_insert = (arrow_length, corner_offset + pin_offset)
 			text_insert = (pin_insert[0] + centering, pin_insert[1] + 15.5)
 			number_insert = (pin_insert[0] + 10 + pin_length, pin_insert[1] + 15.5)
-			arrow_insert = (pin_insert[0], -pin_insert[1] - pin_width)
+			arrow_insert = (-arrow_length, -pin_insert[1] - pin_width)
 			pin_size = (str(pin_length) + "px", str(pin_width) + "px")
-			rotation = "rotate(0)"
+			text_rotation = "rotate(0)"
 			arrow_rotation = "rotate(180)"
 
 		# Pin number
@@ -219,7 +231,7 @@ with open(sys.argv[1]) as csv_file:
 		svg_document.add(svg_document.text(pin_name,
 										   fill = "black",
 										   style = "font-size:" + str(font_size) + "px; font-family:Bitstream Vera Sans Mono;",
-										   transform = rotation,
+										   transform = text_rotation,
 		                                   insert = text_insert))
 		
 		# Direction arrow
@@ -246,7 +258,7 @@ with open(sys.argv[1]) as csv_file:
 			edge = 3
 
     # Chip outline
-    svg_document.add(svg_document.rect(insert = (pin_length, pin_length),
+    svg_document.add(svg_document.rect(insert = (arrow_length + pin_length, arrow_length + pin_length),
 	                                   size = (str(chip_w) + "px", str(chip_h) + "px"),
 	                                   stroke_width = "1",
 	                                   stroke = "black",
