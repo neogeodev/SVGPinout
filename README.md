@@ -1,12 +1,20 @@
 # SVGPinout
-SVG pinout generator
+Generates a .svg pinout from a .csv file
 
 Usage: svgpinout pinout.csv
 
 First CSV line: Chip name
 
-Second CSV line: Package
+Second CSV line: Package (see script for list)
 
-All other lines: Pin name, Type, Direction (IN, OUT, BIDIR)
+All other lines: Pin name, Type, Direction (IN, OUT, BIDIR, or nothing)
 
-Type: A=Address, C=Control, D=Data, K=Clock, P=Power
+Type: 
+* A=Address
+* C=Control
+* D=Data
+* G=Graphics
+* K=Clock
+* M=Multiplexed
+* P=Power
+* ? or nothing=Unknown
