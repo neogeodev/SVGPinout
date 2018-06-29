@@ -170,7 +170,7 @@ with open(sys.argv[1]) as csv_file:
 			rotation = "rotate(-90)"
 			arrow_rotation = "rotate(90)"
 		elif (edge == 1):
-			pin_insert = (chip_w + pin_length, (chip_h + pin_length) - (pin_counter * (pin_width + pin_space) + pin_length - corner_margin))
+			pin_insert = (chip_w + pin_length, (chip_h + pin_length) - (pin_counter * (pin_width + pin_space) + corner_margin + pin_width))
 			text_insert = (pin_insert[0] + centering, pin_insert[1] + 15.5)
 			number_insert = (pin_insert[0] - 10 - number_length*2, pin_insert[1] + 15.5)
 			arrow_insert = (pin_insert[0] + pin_length, pin_insert[1])
