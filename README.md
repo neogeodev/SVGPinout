@@ -1,7 +1,7 @@
 # SVGPinout
 Generates a .svg pinout from a .csv file
 
-Usage: svgpinout pinout.csv
+Usage: svgpinout [pinout.csv | all]
 
 First CSV line: Chip name
 
