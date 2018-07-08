@@ -1,6 +1,7 @@
 # SVG pinout generator 0.1
 # furrtek 07/2018
 # Some packages are not tested !
+# python -m pip install "cairosvg<2.0"
 
 # Usage: svgpinout pinout.csv
 # First CSV line: Chip name
@@ -109,8 +110,8 @@ def generate(filename):
 	    elif package == "QFP176":
 	    	pincount_w = 44
 	    	pincount_h = 44
-	    	ref_size = 50
-	    	dot_size = 30
+	    	ref_size = 90
+	    	dot_size = 55
 	    elif package == "QFP208":
 	    	pincount_w = 52
 	    	pincount_h = 52
@@ -132,8 +133,8 @@ def generate(filename):
 	
 	    svg_document.add(svg_document.image("logo_snk.png",
 	    									size = (doc_w * 0.3, doc_h * 0.3),
-											insert = (doc_w * 0.3, doc_h * 0.2)))
-	
+											insert = (doc_w * 0.2, doc_h * 0.2)))
+
 	    svg_document.add(svg_document.text(chip_name,
 										   fill = "black",
 										   style = "font-size:" + str(ref_size) + "px; font-family:Verdana;",
@@ -203,7 +204,7 @@ def generate(filename):
 			elif (edge == 2):
 				pin_insert = (right_offset - pin_offset, arrow_length)
 				text_insert = (-pin_insert[1] - pin_length + centering, pin_insert[0] + 15.5)
-				number_insert = (pin_insert[0], pin_insert[1] + pin_length + 20)
+				number_insert = (pin_insert[0] - number_length + 10, pin_insert[1] + pin_length + 20)
 				arrow_insert = (-arrow_length, pin_insert[0])
 				pin_size = (str(pin_width) + "px", str(pin_length) + "px")
 				text_rotation = "rotate(-90)"
