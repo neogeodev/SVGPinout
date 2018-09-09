@@ -3,11 +3,10 @@ Generates a .svg pinout from a .csv file
 
 Usage: svgpinout [pinout.csv | all]
 
-First CSV line: Chip name
-
-Second CSV line: Package (see script for list)
-
+First chip CSV line: Chip name, output file name, package, logo file name
 All other lines: Pin name, Type, Direction (IN, OUT, BIDIR, or nothing)
+
+See packages.csv
 
 Type: 
 * A=Address
@@ -16,5 +15,5 @@ Type:
 * G=Graphics
 * K=Clock
 * M=Multiplexed
-* P=Power
+* P=Power (*GND and *VCC are colored automatically)
 * ? or nothing=Unknown
