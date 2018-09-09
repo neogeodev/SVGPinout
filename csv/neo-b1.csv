@@ -1,5 +1,4 @@
-NEO-B1
-QFP160
+NEO-B1,NEO-B1_pinout,QFP160,logo_snk.png
 GND,P
 PA2,A,OUT
 PA3,A,OUT

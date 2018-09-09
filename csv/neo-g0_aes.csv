@@ -1,5 +1,4 @@
-NEO-G0
-QFPR64
+NEO-G0,NEO-G0_aes_pinout,QFPR64,logo_snk.png
 PC3,D,BIDIR
 D0,D,BIDIR
 D1,D,BIDIR

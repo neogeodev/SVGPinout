@@ -1,5 +1,4 @@
-PCM
-QFPR80
+PCM,PCM_pinout,QFPR80,logo_snk.png
 V D1,D,IN
 V D2,D,IN
 NC

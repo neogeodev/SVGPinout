@@ -1,5 +1,4 @@
-LSPC-A0
-QFP160
+LSPC-A0,LSPC-A0_pinout,QFP160,logo_snk.png
 VCC,P
 A1,A,IN
 A2,A,IN

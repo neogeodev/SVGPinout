@@ -1,5 +1,4 @@
-PRO-B0
-QFP136
+PRO-B0,PRO-B0_pinout,QFP136,logo_snk.png
 VCC,P
 PA4,A,OUT
 PA5,A,OUT
