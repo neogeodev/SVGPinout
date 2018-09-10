@@ -74,10 +74,11 @@ def generate(filename):
             pincount = int(package[1])
             pincount_w = int(package[2])
             pincount_h = int(package[3])
-            ref_size = int(package[4])
-            dot_size = int(package[5])
-            chip_h = int(package[6])	# DIP height
-            pin_space = pin_width * float(package[7])
+            pin_number = int(package[4])
+            ref_size = int(package[5])
+            dot_size = int(package[6])
+            chip_h = int(package[7])	# DIP height, overwritten for quad packages
+            pin_space = pin_width * float(package[8])
             break
     
     if dot_size == 0:
@@ -110,7 +111,7 @@ def generate(filename):
 
     # Logo, if present
     if logo_file_name != "":
-        svg_document.add(svg_document.image("../" + logo_file_name,
+        svg_document.add(svg_document.image("../logos/" + logo_file_name,
             									size = (chip_w * 0.4, chip_h * 0.4),
                                                 insert = (markings_x, markings_y)))
     markings_y += 30 + (doc_h * 0.25)
@@ -135,7 +136,6 @@ def generate(filename):
             pin_type = pin[1]
         else:
             pin_type = '?'
-        pin_number = i - 1
         
         # Color decode
         if pin_type == "A":
@@ -234,6 +234,11 @@ def generate(filename):
                 arrow("OUT")
             else:
                 arrow(pin[2])
+
+        if (pin_number == pincount):
+            pin_number = 1
+        else:
+            pin_number += 1
     
         # Progress along chip edges
         pin_total += 1
