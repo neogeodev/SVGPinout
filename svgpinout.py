@@ -146,10 +146,14 @@ def generate(filename):
             rgb_color = "rgb(127,191,255)"
         elif pin_type == "G":
             rgb_color = "rgb(159,191,127)"
+        elif pin_type == "I":
+            rgb_color = "rgb(0,255,191)"
         elif pin_type == "K":
             rgb_color = "rgb(255,0,255)"
         elif pin_type == "M":
             rgb_color = "rgb(255,127,0)"
+        elif pin_type == "O":
+            rgb_color = "rgb(0,159,127)"
         elif pin_type == "P":
             if "VCC" in pin_name:
                 rgb_color = "rgb(255,0,0)"
