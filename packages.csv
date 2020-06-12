@@ -1,5 +1,6 @@
 name,pincount,pincount_w,pincount_h,bottomleft_pin,ref_size,dot_size,height (for DIP),pin spacing factor
 SOIC24,24,12,0,1,40,20,300,1.0
+DIP14,14,7,0,1,50,20,200,1.0
 SOP16,16,8,0,1,40,20,200,1.0
 DIP16,16,8,0,1,50,20,200,1.0
 DIP24,24,12,0,1,50,20,200,1.0
