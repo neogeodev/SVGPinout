@@ -132,6 +132,8 @@ def generate(filename):
     center = (chip_x + (dot_size * 3), doc_h - (pin_length + (dot_size * 3)))))
     
     for i in range(1, len(rows)):
+        if rows[i] == []:
+        	continue
         pin = rows[i]
         pin_name = pin[0]
         if len(pin) > 1:
