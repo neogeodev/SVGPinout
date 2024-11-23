@@ -26,6 +26,7 @@ arrow_insert = []
 arrow_rotation = 0
 
 def arrow(direction):
+	arrow = ""
 	if direction == "OUT":
 		# >
 		arrow = "M " + str(arrow_insert[0]) + "," + str(arrow_insert[1])
@@ -37,7 +38,8 @@ def arrow(direction):
 		arrow += " l " + str(-arrow_length) + "," + str(arrow_length)
 		arrow += " l " + str(arrow_length) + "," + str(arrow_length) + " z"
 
-	svg_document.add(svg_document.path(d = arrow,
+	if arrow != "":
+		svg_document.add(svg_document.path(d = arrow,
 							           fill="black",
 							           transform = arrow_rotation,
 		                               stroke_width = "1",
@@ -261,8 +263,8 @@ def generate(filename):
             edge = 3
     
     if pin_total != pincount:
-	   print("Error: pin count is incorrect ! Got " + str(pin_total) + " need " + str(pincount))
-	   exit()
+        print("Error: pin count is incorrect ! Got " + str(pin_total) + " need " + str(pincount))
+        exit()
 
     # Chip package outline
     svg_document.add(svg_document.rect(insert = (chip_x, arrow_length + pin_length),
