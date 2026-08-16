@@ -1,5 +1,5 @@
 NEO-253,NEO-253_pinout,QFPR64,logo_snk.png
-1C1,I,IN			
+1C1,I,IN
 1C2,I,IN
 1C3,I,IN
 2C0,I,IN
@@ -52,9 +52,9 @@ GND,P
 9C2,I,IN
 9C3,I,IN
 NC
-A,I,IN
-B,I,IN
-G,I,IN
+A,C,IN
+B,C,IN
+G,C,IN
 GND,P
 VCC,P
 10Y,O,OUT
